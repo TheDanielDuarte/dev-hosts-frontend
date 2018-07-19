@@ -13,6 +13,7 @@ import { ServersComponent } from './components/Products/servers/servers.componen
 import { ServicesComponent } from './components/Products/services/services.component';
 import { DataStorageComponent } from './components/Products/data-storage/data-storage.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,12 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ServersComponent,
     ServicesComponent,
     DataStorageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

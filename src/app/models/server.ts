@@ -1,8 +1,8 @@
 export class Server {
   constructor(
     public id: number,
-    public created_at: Date,
-    public updated_at: Date,
+    public createdAt: Date,
+    public updatedAt: Date,
     public name: string,
     public description: string,
     public pricePerMonth: number,

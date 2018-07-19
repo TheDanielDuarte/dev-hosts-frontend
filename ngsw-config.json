@@ -9,6 +9,9 @@
         "/index.html",
         "/*.css",
         "/*.js"
+      ],
+      "urls": [
+        "https://fonts.googleapis.com/css?family=Montserrat+Alternates"
       ]
     }
   }, {
@@ -20,5 +23,20 @@
         "/assets/**"
       ]
     }
-  }]
+  }],
+  "dataGroups": [
+    {
+      "name": "api-data",
+      "urls": [
+        "https://devhosts.herokuapp.com/api/servers",
+        "https://devhosts.herokuapp.com/api/storage-center",
+        "https://devhosts.herokuapp.com/api/services"
+      ],
+      "cacheConfig": {
+        "maxSize": 20,
+        "maxAge": "2d",
+        "strategy": "performance"
+      }
+    }
+  ]
 }

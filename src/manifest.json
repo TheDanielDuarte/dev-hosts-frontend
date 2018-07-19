@@ -1,8 +1,8 @@
 {
-  "name": "dev-hosts-client",
-  "short_name": "dev-hosts-client",
+  "name": "DevHosts",
+  "short_name": "DevHosts",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "#202435",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

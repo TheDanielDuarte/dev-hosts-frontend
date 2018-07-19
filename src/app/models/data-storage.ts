@@ -1,8 +1,8 @@
 export class DataStorage {
   constructor(
     public id: number,
-    public created_at: Date,
-    public updated_at: Date,
+    public createdAt: Date,
+    public updatedAt: Date,
     public name: string,
     public shortDescription: string,
     public storageInGb: number,
