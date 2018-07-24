@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ProductsComponent } from './components/products/products.component';
-import { DataStorageComponent } from './components/Products/data-storage/data-storage.component';
-import { ServicesComponent } from './components/Products/services/services.component';
-import { ServersComponent } from './components/Products/servers/servers.component';
-import { AllProductsComponent } from './components/Products/all-products/all-products.component';
+import { DataStorageComponent } from './components/products/data-storage/data-storage.component';
+import { ServicesComponent } from './components/products/services/services.component';
+import { ServersComponent } from './components/products/servers/servers.component';
+import { AllProductsComponent } from './components/products/all-products/all-products.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
