@@ -30,9 +30,9 @@ header {
   background-color: mat-color($custom-theme-accent);
   color: black;
   text-align: center;
-  width: 200px;
-  max-height: 200px;
-  font-family: 'Montserrat Alternates', sans-serif;
+  width: 210px;
+  max-height: 250px;
+  font-family: 'Montserrat Alternates', 'Montserrat', sans-serif;
   line-height: 100%;
   border-radius: 32px;
 
@@ -46,7 +46,7 @@ header {
   &-link {
     color: #000000;
     font-size: 18px;
-    font-weight: 1000;
+    font-weight: bold;
   }
 }
 

@@ -11,7 +11,10 @@
         "/*.js"
       ],
       "urls": [
-        "https://fonts.googleapis.com/css?family=Montserrat+Alternates"
+        "https://fonts.googleapis.com/css?family=Montserrat+Alternates:400,700",
+        "https://fonts.googleapis.com/icon?family=Material+Icons",
+        "https://fonts.gstatic.com/**",
+        "https://fonts.googleapis.com/css?family=Montserrat"
       ]
     }
   }, {
