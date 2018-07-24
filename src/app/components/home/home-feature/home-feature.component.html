@@ -1,0 +1,17 @@
+<section class="feature left" *ngIf="iconPosition === 'left'; else iconPositionRight">
+  <mat-icon class="feature-icon">{{ icon }}</mat-icon>
+  <div class="feature-content">
+    <h4 class="feature-title">{{ title }}</h4>
+    <p class="feature-text">{{ text }}</p>
+  </div>
+</section>
+
+<ng-template #iconPositionRight>
+  <section class="feature right">
+    <div class="feature-content">
+      <h4 class="feature-title">{{ title }}</h4>
+      <p class="feature-text">{{ text }}</p>
+    </div>
+    <mat-icon class="feature-icon">{{ icon }}</mat-icon>
+  </section>
+</ng-template>

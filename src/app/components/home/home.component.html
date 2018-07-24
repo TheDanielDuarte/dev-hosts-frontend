@@ -1,5 +1,30 @@
 <header>
-  <h1>VPS and <br> 
-    Cloud Computing <br>
-    Platform.</h1> 
+  <div class="container">
+    <h1>VPS and <br> 
+      Cloud Computing <br>
+      Platform.</h1> 
+    <span class="caption">made by: <br> 
+      <a href="https://daniel-duarte.firebaseapp.com" rel="noopener" target="_blank">Daniel Duarte</a>
+    </span>
+  </div>
 </header>
+
+<div class="container">
+  <div class="grid">
+    <div>
+      <app-home-feature 
+        *ngFor="let feature of features"
+        [title]="feature.title"
+        [icon]="feature.icon"
+        [text]="feature.text"
+        [iconPosition]="feature.position"></app-home-feature>
+    </div>
+    <div>
+      <mat-card class="auth-card">
+        <a href="" class="auth-card-link">Create an account</a>
+        <span class="auth-card-divider">or</span>
+        <a href="" class="auth-card-link">Log in to an existing account</a>
+      </mat-card>
+    </div>
+  </div>
+</div>

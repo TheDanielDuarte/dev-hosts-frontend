@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { HomeFeatureComponent } from './components/home/home-feature/home-feature.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MaterialModule } from './material.module';
     ServicesComponent,
     DataStorageComponent,
     PageNotFoundComponent,
+    HomeFeatureComponent,
   ],
   imports: [
     BrowserModule,
