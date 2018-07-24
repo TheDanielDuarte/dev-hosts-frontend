@@ -1,0 +1,116 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$primary: (
+  50 : #e4e5e7,
+  100 : #bcbdc2,
+  200 : #90929a,
+  300 : #636672,
+  400 : #414553,
+  500 : #202435,
+  600 : #1c2030,
+  700 : #181b28,
+  800 : #131622,
+  900 : #0b0d16,
+  A100 : #5971ff,
+  A200 : #2645ff,
+  A400 : #0023f2,
+  A700 : #001fd9,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$accent: (
+  50 : #e6f8fe,
+  100 : #c1edfc,
+  200 : #98e1fa,
+  300 : #6ed4f7,
+  400 : #4fcbf6,
+  500 : #30c2f4,
+  600 : #2bbcf3,
+  700 : #24b4f1,
+  800 : #1eacef,
+  900 : #139fec,
+  A100 : #ffffff,
+  A200 : #e7f6ff,
+  A400 : #b4e2ff,
+  A700 : #9bd8ff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$custom-theme-primary: mat-palette($primary);
+$custom-theme-accent: mat-palette($accent);
+$theme-foreground: (
+  base:              white,
+  divider:           $light-dividers,
+  dividers:          $light-dividers,
+  disabled:          $light-disabled-text,
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     $light-disabled-text,
+  hint-text:         $light-disabled-text,
+  secondary-text:    #747474,
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+
+$theme-background: (
+  status-bar: black,
+  app-bar:    map_get($mat-grey, 900),
+  background: #202435,
+  hover:      rgba(white, 0.04),
+  card:       map_get($mat-grey, 800),
+  dialog:     map_get($mat-grey, 800),
+  disabled-button: rgba(white, 0.12),
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $light-focused,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+$my-theme: (
+  primary: $custom-theme-primary,
+  accent: $custom-theme-accent,
+  warn: mat-palette($mat-red),
+  is-dark: true,
+  foreground: $mat-dark-theme-foreground,
+  background: $theme-background,
+);
+
+@include angular-material-theme($my-theme);

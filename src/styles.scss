@@ -1,0 +1,11 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/reboot';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Montserrat Alternates', sans-serif; }
+
+html { font-size: 24px; }
+
+body { background-color: #202435; }
