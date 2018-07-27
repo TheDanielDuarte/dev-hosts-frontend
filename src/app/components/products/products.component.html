@@ -1,4 +1,52 @@
-<p>
-  products works!
-</p>
+<div class="container">
+  <h1 class="page-title">Products</h1>
+
+  <section class="toolbar">
+    <ul class="nav">
+      <li class="nav-link">
+        <a routerLink="all" routerLinkActive="active">All</a>
+      </li>
+      <li class="nav-link">
+        <a routerLink="servers" routerLinkActive="active">Servers</a>
+      </li>
+      <li class="nav-link">
+        <a routerLink="services" routerLinkActive="active">Services</a>
+      </li>
+      <li class="nav-link">
+        <a routerLink="data-storage" routerLinkActive="active">Data Storage</a>
+      </li>
+    </ul>
+
+    <ul class="options">
+      <li>
+        <input 
+          type="search" 
+          class="search-input" 
+          *ngIf="showSearchInput"
+          [(ngModel)]="lastValue"
+          placeholder="Search..." 
+          [@searchInput] 
+          (keyup)="filterProducts($event)"
+          #searchInput>
+        <button mat-icon-button role="button" [ngClass]="{ active: showSearchInput }" (click)="toggleSearchInput(searchInput)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </li>
+      <span class="divider">|</span>
+      <li>
+        <button mat-icon-button role="button" [ngClass]="{ active: isGrid }" (click)="changeLayout('grid')">
+          <mat-icon>grid_on</mat-icon>
+        </button>
+      </li>
+      <li>
+        <button mat-icon-button role="button" [ngClass]="{ active: !isGrid }" (click)="changeLayout('list'  )">
+          <mat-icon>list</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </section>
+
+</div>
+
 <router-outlet></router-outlet>
+  

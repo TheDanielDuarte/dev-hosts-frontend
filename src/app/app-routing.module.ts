@@ -22,7 +22,8 @@ const routes: Routes = [
       { path: 'servers', component: ServersComponent }
     ]
   },
-  { path: '**', component: PageNotFoundComponent }
+  { path: 'error', component: PageNotFoundComponent },
+  { path: '**', redirectTo: 'error', pathMatch: 'full' }
 ];
 
 @NgModule({

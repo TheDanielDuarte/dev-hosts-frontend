@@ -1,0 +1,108 @@
+@import '~@angular/material/theming';
+@import '../../../theme';
+
+.container {
+  margin-top: 75px;
+}
+
+.page-title {
+  font-size: 60px;
+  color: #676E85;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  &-link {
+    display: inline-block;
+    margin-right: 43.5px;
+  }
+  a { 
+    color: #ffffff; 
+    font-size: 18px; 
+    position: relative;
+    padding-bottom: 7px;
+    transition-property: color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      height: 2.5px;
+    }
+
+    &.active::after {
+      width: 100%;
+      
+      border-radius: 1px;
+      background: rgb(0,255,132);
+      background: linear-gradient(90deg, rgba(0,255,132,1) 0%, rgba(48,194,244,1) 100%);
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: darken(#ffffff, 15);
+    }
+  }
+}
+
+.options {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    margin-left: 16px;
+    color: #747474;
+
+  }
+
+  button {
+    outline: none;
+    transition-property: color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    &.active {
+      color: mat-color($custom-theme-accent);
+    }
+  }
+
+  .divider {
+    display: inline-block;
+    margin: 0;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgba(255, 255, 255, 0.12);
+    color: transparent;
+  }
+}
+
+.search-input {
+  background: transparent;
+  font-size: 18px;
+  border: none;
+  border-bottom-color: darken(#ffffff, 15);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  max-width: 150px;
+  outline: none;
+  color: darken(#ffffff, 30);
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+}
+
+.search-input:focus {
+  color: darken(#ffffff, 15);
+  border-bottom-color: #ffffff;
+}

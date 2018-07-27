@@ -3,20 +3,20 @@
 @include mat-core();
 
 $primary: (
-  50 : #e4e5e7,
-  100 : #bcbdc2,
-  200 : #90929a,
-  300 : #636672,
-  400 : #414553,
-  500 : #202435,
-  600 : #1c2030,
-  700 : #181b28,
-  800 : #131622,
-  900 : #0b0d16,
-  A100 : #5971ff,
-  A200 : #2645ff,
-  A400 : #0023f2,
-  A700 : #001fd9,
+  50 : #e6e7e9,
+  100 : #c0c2c8,
+  200 : #969aa4,
+  300 : #6b7180,
+  400 : #4c5264,
+  500 : #2c3449,
+  600 : #272f42,
+  700 : #212739,
+  800 : #1b2131,
+  900 : #101521,
+  A100 : #6387ff,
+  A200 : #3060ff,
+  A400 : #003afc,
+  A700 : #0034e3,
   contrast: (
     50 : #000000,
     100 : #000000,
@@ -28,7 +28,7 @@ $primary: (
     700 : #ffffff,
     800 : #ffffff,
     900 : #ffffff,
-    A100 : #ffffff,
+    A100 : #000000,
     A200 : #ffffff,
     A400 : #ffffff,
     A700 : #ffffff,
@@ -68,7 +68,7 @@ $accent: (
   )
 );
 
-$custom-theme-primary: mat-palette($primary);
+$custom-theme-primary: mat-palette($primary, 200);
 $custom-theme-accent: mat-palette($accent);
 $theme-foreground: (
   base:              white,

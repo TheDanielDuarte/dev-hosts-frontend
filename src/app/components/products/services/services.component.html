@@ -1,3 +1,7 @@
-<p>
-  services works!
-</p>
+<div class="container" style="margin-top: 200px">
+  <ul style="padding: 0; margin: 0; list-style: none;">
+    <li><strong>Layout:</strong> {{ (showAsGrid$ | async) ? 'Grid' : 'List' }}</li>
+    <li><strong>Active:</strong> {{ (filter$ | async).active }}</li>
+    <li><strong>Value:</strong> {{ (filter$ | async).value.length > 1 ? (filter$ | async).value : 'null'  }}</li>
+  </ul>
+</div>
