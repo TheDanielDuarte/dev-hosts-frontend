@@ -4,23 +4,10 @@ export class Server {
     public createdAt: Date,
     public updatedAt: Date,
     public name: string,
-    public description: string,
-    public pricePerMonth: number,
-    public eventsPerMonth: number,
-    public historyInDays: number,
-    public users: number,
-    public concurrentBuilds: string,
-    public buildsPerDay: string,
-    public group: Group
-  ) {}
-}
-
-class Group {
-  constructor(
-    public id: number,
-    public name: string,
-    public description: string,
-    public subgroupName: string,
-    public subgroupDescription: string
+    public memoryInGb: number,
+    public cpu: number,
+    public storageInGb: number,
+    public transferInTb: number,
+    public pricePerMonth: number
   ) {}
 }

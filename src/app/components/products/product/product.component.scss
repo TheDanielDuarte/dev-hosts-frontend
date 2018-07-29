@@ -1,0 +1,145 @@
+@import '~@angular/material/theming';
+@import '../../../../theme';
+
+
+:host {
+  display: block !important;
+  background-color: #2C3449;
+  border-radius: 6px;
+}
+
+:host(.active) {
+  a { text-transform: uppercase; text-decoration: none; }
+    
+  .buttons { display: flex; justify-content: flex-end; }
+  mat-divider { margin-top: 1rem; margin-bottom: 1rem; display: block; }
+
+  p { 
+    font-size: 14px; 
+    a { color: mat-color($custom-theme-accent); text-transform: none; } 
+  }
+}
+
+header > div {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+
+  .title {
+    font-size: 20px;
+    cursor: pointer;
+    display: inline-block;
+    
+    &:hover { text-decoration: underline; }
+  }
+
+  mat-icon {
+    color: #747474;
+  }
+}
+
+.sub-title {
+  font-size: 14px;
+  color: #747474;
+  width: 100%;
+}
+
+.fields ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.fields ul li {
+  display: inline-block;
+  background-color: #3C4966;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 12px 20px 12px 20px;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.more {
+    color: mat-color($custom-theme-accent);
+    background-color: #202435;
+    cursor: pointer;
+  }
+}
+
+.grid {  
+  :host {
+    padding: 22.8px;
+    min-height: 198.7px;
+  }
+
+  :host(.active) {
+    height: 105%;
+    align-self: center;
+    justify-self: center;
+    z-index: 1000;
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    :host { padding-bottom: 11.4px; }
+  }
+    
+  header {
+    padding-bottom: 23.4px;
+  }
+  
+  .fields ul {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    grid-column-gap: 10px;
+    grid-row-gap: 11.3px;
+    grid-auto-flow: dense;
+  }
+}  
+
+.list {
+  display: grid;
+  grid-template-areas: "header fields";
+  align-items: center;
+  
+  :host {
+    padding-top: 24.3px;
+    padding-bottom: 24.3px;
+    min-height: 108.7px;
+    padding-left: 70.5px;
+    padding-right: 20px;
+    max-height: 108.7px;
+  }
+
+  :host(.active) {
+    padding-bottom: 174.3px;
+
+    mat-divider, .buttons { grid-column: span 2; }
+
+    mat-icon {
+      color: #747474;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .fields {
+    justify-self: end;
+
+    ul {
+      grid-auto-flow: column;
+      grid-column-gap: 10px;
+    }
+  }
+}

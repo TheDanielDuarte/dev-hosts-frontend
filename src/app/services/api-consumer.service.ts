@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as camelcaseKeys from 'camelcase-keys';
 import { Observable, merge } from 'rxjs';
-import { Server } from '@models/server';
+import { Service } from '@models/service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { DataStorage } from '@models/data-storage';
-import { Service } from '@models/service';
+import { Server } from '@models/server';
 
 @Injectable({
   providedIn: 'root'

@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HomeFeatureComponent } from './components/home/home-feature/home-feature.component';
 import { FormsModule } from '@angular/forms';
+import { ProductComponent } from './components/products/product/product.component';
+import { FieldToWordPipe } from './pipes/field-to-word.pipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { FormsModule } from '@angular/forms';
     DataStorageComponent,
     PageNotFoundComponent,
     HomeFeatureComponent,
+    ProductComponent,
+    FieldToWordPipe
   ],
   imports: [
     BrowserModule,

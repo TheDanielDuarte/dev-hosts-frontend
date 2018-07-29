@@ -28,7 +28,7 @@
           [@searchInput] 
           (keyup)="filterProducts($event)"
           #searchInput>
-        <button mat-icon-button role="button" [ngClass]="{ active: showSearchInput }" (click)="toggleSearchInput(searchInput)">
+        <button mat-icon-button role="button" [ngClass]="{ active: showSearchInput }" (click)="toggleSearchInput()">
           <mat-icon>search</mat-icon>
         </button>
       </li>
