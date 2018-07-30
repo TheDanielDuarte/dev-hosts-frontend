@@ -1,0 +1,15 @@
+<section class="container">
+  <div [ngClass]="(showAsGrid$ | async) ? 'grid' : 'list'">
+    <app-product
+      *ngFor="let product of data"
+      [title]="product.name"
+      [price]="product.pricePerMonth"
+      [data]="product"
+      [fields]="fields"
+      [productId]="product.id"
+      [userIsLoggedIn]="userIsLoggedIn"
+      (activate)="onActivate(product.id)"
+      (deactivate)="onDeactivate(product.id)"
+    ></app-product>
+  </div>
+</section>

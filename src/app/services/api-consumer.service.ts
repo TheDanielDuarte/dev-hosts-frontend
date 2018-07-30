@@ -38,7 +38,7 @@ export class ApiConsumerService {
     );
   }
 
-  public transformKeyToText(field: string) {
+  private transformKeyToText(field: string) {
     if (field.includes('In')) {
       const regex = /(\w+)in(\w+)$/gi;
       const [, prop, unit] = regex.exec(field);
@@ -46,5 +46,20 @@ export class ApiConsumerService {
       return [prop, unit];
     }
     return field;
+  }
+
+  public propertiesToWords() {
+    return map((products: any[]) => products.map(product => {
+      Object.entries(product)
+        .forEach(([oldKey, value]) => {
+          const result = this.transformKeyToText(oldKey);
+          if (Array.isArray(result)) {
+            const [newKey, unit] = result;
+            product[newKey] = value + unit;
+            delete product[oldKey];
+          }
+        });
+      return product;
+    }));
   }
 }

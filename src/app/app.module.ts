@@ -8,10 +8,6 @@ import { environment } from '../environments/environment';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductsComponent } from './components/products/products.component';
-import { AllProductsComponent } from './components/products/all-products/all-products.component';
-import { ServersComponent } from './components/products/servers/servers.component';
-import { ServicesComponent } from './components/products/services/services.component';
-import { DataStorageComponent } from './components/products/data-storage/data-storage.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +16,7 @@ import { HomeFeatureComponent } from './components/home/home-feature/home-featur
 import { FormsModule } from '@angular/forms';
 import { ProductComponent } from './components/products/product/product.component';
 import { FieldToWordPipe } from './pipes/field-to-word.pipe';
+import { PageComponent } from './components/products/page/page.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +24,11 @@ import { FieldToWordPipe } from './pipes/field-to-word.pipe';
     NavbarComponent,
     HomeComponent,
     ProductsComponent,
-    AllProductsComponent,
-    ServersComponent,
-    ServicesComponent,
-    DataStorageComponent,
     PageNotFoundComponent,
     HomeFeatureComponent,
     ProductComponent,
-    FieldToWordPipe
+    FieldToWordPipe,
+    PageComponent
   ],
   imports: [
     BrowserModule,
