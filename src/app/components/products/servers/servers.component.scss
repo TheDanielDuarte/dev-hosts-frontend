@@ -1,0 +1,16 @@
+:host {
+  margin-top: 251.2 - 182.3px;
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row-gap: 14px;
+  grid-column-gap: 14px;
+}
+
+.list {
+  display: grid;
+  grid-gap: 11.3px;
+}

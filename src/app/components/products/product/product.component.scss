@@ -6,6 +6,7 @@
   display: block !important;
   background-color: #2C3449;
   border-radius: 6px;
+  transition: opacity 0.2s ease-out;
 }
 
 :host(.active) {
@@ -19,6 +20,8 @@
     a { color: mat-color($custom-theme-accent); text-transform: none; } 
   }
 }
+
+:host(.shadowed) { opacity: 0.6; }
 
 header > div {
   display: flex;

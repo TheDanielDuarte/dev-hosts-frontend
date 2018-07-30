@@ -2,7 +2,7 @@
   <header>
     <div>
       <h3 (click)="toggleActive()" class="title">{{ title }}</h3>
-      <a (click)="toggleActive()" *ngIf="active && ((layout$ | async) === 'grid')" mat-icon-button>
+      <a (click)="toggleActive()" *ngIf="isActive && ((layout$ | async) === 'grid')" mat-icon-button>
         <mat-icon>cancel</mat-icon>
       </a>
     </div>
@@ -10,20 +10,20 @@
   </header>
   <div class="fields">
     <ul>
-      <li *ngFor="let field of (active ? fields : previewFields)">{{ field | fieldToWord }}: {{ data[field] }}</li>
+      <li *ngFor="let field of (isActive ? fields : previewFields)">{{ field | fieldToWord }}: {{ data[field] }}</li>
       <li class="more" *ngIf="getRemainingFields() && !active" (click)="toggleActive()">{{ getRemainingFields() }}+</li>
     </ul>
   </div>
   
-  <ng-container *ngIf="active">
+  <ng-container *ngIf="isActive">
     <mat-divider></mat-divider>
     <div class="buttons">
-      <a (click)="toggleActive()" *ngIf="active && ((layout$ | async) === 'list')" mat-icon-button>
+      <a (click)="toggleActive()" *ngIf="isActive && ((layout$ | async) === 'list')" mat-icon-button>
         <mat-icon>cancel</mat-icon>
       </a>
       <div *ngIf="userIsLoggedIn; else userNotLoggedIn">
-        <a mat-button color="accent" (click)="active = true;" >buy</a>
-        <a mat-button color="primary" (click)="active = true;">add to cart</a>
+        <a mat-button color="accent">buy</a>
+        <a mat-button color="primary">add to cart</a>
       </div>
   
       <ng-template #userNotLoggedIn>

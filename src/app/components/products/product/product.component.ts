@@ -19,7 +19,8 @@ export class ProductComponent implements OnInit {
   public layout$: Observable<any>;
   public previewFields: string[];
   private remainingFields: number;
-  public active = false;
+  private active = false;
+  private shadowed = false;
 
   constructor(
     private productsCommunication: ProductsCommunicationService,
@@ -50,4 +51,16 @@ export class ProductComponent implements OnInit {
     }
     this.active = !this.active;
   }
+
+  public toggleShadowMode() {
+    if (this.shadowed) {
+      this.renderer.removeClass(this.element.nativeElement, 'shadowed');
+    } else {
+      this.renderer.addClass(this.element.nativeElement, 'shadowed');
+    }
+    this.shadowed = !this.shadowed;
+  }
+
+  public get isShadowed() { return this.shadowed; }
+  public get isActive() { return this.active; }
 }

@@ -37,4 +37,14 @@ export class ApiConsumerService {
       map(data => (data.map(camelcaseKeys) as T[]))
     );
   }
+
+  public transformKeyToText(field: string) {
+    if (field.includes('In')) {
+      const regex = /(\w+)in(\w+)$/gi;
+      const [, prop, unit] = regex.exec(field);
+
+      return [prop, unit];
+    }
+    return field;
+  }
 }
