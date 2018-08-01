@@ -1,26 +1,26 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChildren, QueryList, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductComponent } from '../product/product.component';
-import { ApiConsumerService } from '@services/api-consumer.service';
 import { ProductsCommunicationService } from '@services/products-communication.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent implements OnInit {
+export class PageComponent implements OnInit, OnDestroy {
   public showAsGrid$: Observable<boolean>;
   public filter$: Observable<{ active: boolean; value: string }>;
   public data: any[];
   public userIsLoggedIn: boolean;
   @ViewChildren(ProductComponent) private products: QueryList<ProductComponent>;
   public fields: string[];
+  public groups: { title: string, data: any[], fields: string[] }[];
+  private subscription: Subscription;
 
   constructor(
-    private api: ApiConsumerService,
     private productsComunication: ProductsCommunicationService,
     private route: ActivatedRoute
   ) { }
@@ -32,10 +32,13 @@ export class PageComponent implements OnInit {
 
     this.filter$ = this.productsComunication.onFilterProducts();
     this.userIsLoggedIn = true;
-    this.route.data.subscribe(data => {
-      console.log(data);
-      this.fields = data.fields;
-      this.data = data.data;
+    this.subscription = this.route.data.subscribe(data => {
+      if (!data.groups) {
+        this.fields = data.fields;
+        this.data = data.data;
+      } else {
+        this.groups = data.groups.map((group, index) => ({ fields: [], ...group, data: data.data[index] }));
+      }
     });
   }
 
@@ -56,6 +59,10 @@ export class PageComponent implements OnInit {
         product.toggleShadowMode();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

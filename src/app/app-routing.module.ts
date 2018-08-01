@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { PageComponent } from './components/products/page/page.component';
 import { ServersResolver } from './resolvers/servers.resolver';
 import { DataStorageResolver } from './resolvers/data-storage.resolver';
+import { ServiceResolver } from './resolvers/service.resolver';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,7 +23,16 @@ const routes: Routes = [
         data: { fields: ['storage', 'transfer'] },
         resolve: { data: DataStorageResolver }
       },
-      { path: 'services', component: PageComponent },
+      {
+        path: 'services',
+        component: PageComponent,
+        data: { groups: [
+          { title: 'Load Balancer' },
+          { title: 'Continuous integration', fields: ['builds', 'concurrentBuilds'] },
+          { title: 'Error Logging / Monitoring', fields: ['events', 'history', 'users'] }
+        ] },
+        resolve: { data: ServiceResolver }
+      },
       {
         path: 'servers',
         component: PageComponent,

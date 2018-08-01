@@ -14,3 +14,9 @@
   display: grid;
   grid-gap: 11.3px;
 }
+
+.service-group:not(:last-of-type) {
+  margin-bottom: 30px;
+}
+
+.service-group-title { font-size: 0.8rem; display: inline-block; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; }

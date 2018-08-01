@@ -11,7 +11,7 @@
   <div class="fields">
     <ul>
       <li *ngFor="let field of (isActive ? fields : previewFields)">{{ field | fieldToWord }}: {{ data[field] }}</li>
-      <li class="more" *ngIf="getRemainingFields() && !active" (click)="toggleActive()">{{ getRemainingFields() }}+</li>
+      <li class="more" *ngIf="getRemainingFields() && !isActive" (click)="toggleActive()">{{ getRemainingFields() }}+</li>
     </ul>
   </div>
   

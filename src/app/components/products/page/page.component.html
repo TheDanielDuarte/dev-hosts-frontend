@@ -1,15 +1,35 @@
 <section class="container">
-  <div [ngClass]="(showAsGrid$ | async) ? 'grid' : 'list'">
-    <app-product
-      *ngFor="let product of data"
-      [title]="product.name"
-      [price]="product.pricePerMonth"
-      [data]="product"
-      [fields]="fields"
-      [productId]="product.id"
-      [userIsLoggedIn]="userIsLoggedIn"
-      (activate)="onActivate(product.id)"
-      (deactivate)="onDeactivate(product.id)"
-    ></app-product>
-  </div>
+  <ng-container *ngIf="!groups; else dataGroups">
+    <div [ngClass]="(showAsGrid$ | async) ? 'grid' : 'list'">
+      <app-product
+        *ngFor="let product of data"
+        [title]="product.name"
+        [price]="product.pricePerMonth"
+        [data]="product"
+        [fields]="fields"
+        [productId]="product.id"
+        [userIsLoggedIn]="userIsLoggedIn"
+        (activate)="onActivate(product.id)"
+        (deactivate)="onDeactivate(product.id)"
+      ></app-product>
+    </div>
+  </ng-container>
+  <ng-template #dataGroups>
+    <div *ngFor="let group of groups" class="service-group">
+      <span class="service-group-title">{{ group.title }}</span>
+      <div [ngClass]="(showAsGrid$ | async) ? 'grid' : 'list'">
+        <app-product
+          *ngFor="let product of group.data"
+          [title]="product.name"
+          [price]="product.pricePerMonth"
+          [data]="product"
+          [fields]="group.fields"
+          [productId]="product.id"
+          [userIsLoggedIn]="userIsLoggedIn"
+          (activate)="onActivate(product.id)"
+          (deactivate)="onDeactivate(product.id)"
+        ></app-product>
+      </div>
+    </div>
+  </ng-template>
 </section>

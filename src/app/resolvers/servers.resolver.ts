@@ -14,8 +14,7 @@ export class ServersResolver implements Resolve<any[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.api.servers().pipe(
-      this.api.propertiesToWords(),
-      tap(console.log),
+      map(servers => this.api.propertiesToWords(servers)),
       map(servers => servers.map(server => {
         (server as any).cpus = server.cpu;
         delete server.cpu;
