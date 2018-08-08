@@ -26,30 +26,6 @@ header {
   }
 }
 
-.auth-card {
-  background-color: mat-color($custom-theme-accent);
-  color: black;
-  text-align: center;
-  width: 210px;
-  max-height: 250px;
-  font-family: 'Montserrat Alternates', 'Montserrat', sans-serif;
-  line-height: 100%;
-  border-radius: 32px;
-
-  &-divider {
-    display: block;
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-
-  &-link {
-    color: #000000;
-    font-size: 18px;
-    font-weight: bold;
-  }
-}
-
 .container:last-of-type {
   padding-top: 45px;
 }

@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { ProductComponent } from './components/products/product/product.component';
 import { FieldToWordPipe } from './pipes/field-to-word.pipe';
 import { PageComponent } from './components/products/page/page.component';
+import { ProductsOverviewComponent } from './components/products/products-overview/products-overview.component';
+import { AuthWidgetComponent } from './components/auth-widget/auth-widget.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { PageComponent } from './components/products/page/page.component';
     HomeFeatureComponent,
     ProductComponent,
     FieldToWordPipe,
-    PageComponent
+    PageComponent,
+    ProductsOverviewComponent,
+    AuthWidgetComponent,
   ],
   imports: [
     BrowserModule,
