@@ -1,3 +1,18 @@
 <div class="container">
-  <h4>DevHosts selected list of products</h4>
+  <div>
+    <div *ngFor="let title of titles">
+      <h4>{{ title }}</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi laboriosam impedit sapiente itaque. Assumenda voluptas quibusdam possimus qui ut, provident natus recusandae laboriosam perspiciatis itaque in accusamus quos dolor. Odit aliquam nulla saepe vitae quo iusto officia quae ratione ut!</p>
+    </div>
+  </div>
+  <div class="widgets">
+    <div class="widgets-auth">
+      <app-auth-widget></app-auth-widget>
+    </div>
+    <div class="widgets-links">
+      <a routerLink="/products/servers">check our servers</a>
+      <a routerLink="/products/services">check our services</a>
+      <a routerLink="/products/data-storage">check our data storage</a>
+    </div>
+  </div>
 </div>

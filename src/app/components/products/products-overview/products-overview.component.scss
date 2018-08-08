@@ -1,0 +1,37 @@
+@import '~@angular/material/theming';
+@import '../../../../theme';
+:host {
+  margin-top: 251.2 - 182.3px;
+  display: block;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 65vh;
+  grid-template-columns: 5fr 2fr;
+}
+
+.container > div {
+  &:first-of-type { margin-top: auto; }
+  margin-top: 376px - (276.1 + 73.1);
+
+  h4 { font-size: 16px; }
+  p { font-size: 14px; font-family: 'Montserrat', sans-serif; color: #B9B9B9; }
+}
+
+.widgets {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.widgets-links > a {
+  color: mat-color($custom-theme-accent);
+  display: block;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  margin: 568.9px - (538.9 + 20) 0;
+}
