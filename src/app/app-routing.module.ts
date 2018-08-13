@@ -8,6 +8,7 @@ import { ServersResolver } from './resolvers/servers.resolver';
 import { DataStorageResolver } from './resolvers/data-storage.resolver';
 import { ServiceResolver } from './resolvers/service.resolver';
 import { ProductsOverviewComponent } from './components/products/products-overview/products-overview.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -45,6 +46,7 @@ const routes: Routes = [
       },
     ]
   },
+  { path: 'register', component: RegisterComponent },
   { path: 'error', component: PageNotFoundComponent },
   { path: '**', redirectTo: 'error', pathMatch: 'full' }
 ];

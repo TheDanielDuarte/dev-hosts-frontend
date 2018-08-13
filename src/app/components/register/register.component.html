@@ -1,0 +1,107 @@
+<ng-container *ngIf="!complition.done; else doneRegistering">
+  <div class="left-section">
+    <div class="container">
+      <h4 class="page-title">Register</h4>
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <ng-container *ngIf="currentPage === 'first'; else secondPage">
+          <mat-form-field appearance="standard">
+            <mat-label>First Name</mat-label>
+            <input matInput [ngModel]="user.firstName" name="firstName" required maxlength="60" #firstNameInput="ngModel">
+            <mat-error *ngIf="!firstNameInput.valid">Your first name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Last Name</mat-label>
+            <input matInput [ngModel]="user.lastName" name="lastName" required maxlength="60" #lastNameInput="ngModel">
+            <mat-error *ngIf="!lastNameInput.valid">Your last name is required</mat-error>
+          </mat-form-field>
+        </ng-container>
+  
+        <ng-template #secondPage>
+          <mat-form-field appearance="standard">
+            <mat-label>Email</mat-label>
+            <input matInput [ngModel]="user.email" name="email" email required #emailInput="ngModel">
+            <mat-error *ngIf="!emailInput.valid">
+              <ng-container *ngIf="emailInput.hasError('required'); else invalidEmail">You must enter you email</ng-container>
+              <ng-template #invalidEmail>This email has an invalid format</ng-template>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" [ngModel]="user.password" name="password" required minlength="8" #pswInput="ngModel">
+            <mat-error *ngIf="!pswInput.valid">
+              <ng-container *ngIf="pswInput.hasError('required')">You must enter a password</ng-container>
+              <ng-container *ngIf="pswInput.hasError('minlength')">It must be at least 8 charactes long</ng-container>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Confirm your password</mat-label>
+            <input matInput type="password" [ngModel]="passwordConfirmation" name="passwordConfirmation" required #pswConfInput="ngModel" [appSameText]="pswInput.value">
+            <mat-error *ngIf="!pswConfInput.valid">
+              <ng-container *ngIf="pswConfInput.hasError('required')">You must confirm your password</ng-container>
+              <ng-container *ngIf="pswConfInput.hasError('sameText') && !pswConfInput.hasError('required')">Passwords do not match</ng-container>
+            </mat-error>
+          </mat-form-field>
+        </ng-template>
+  
+        <div class="bottom-buttons">
+          <button 
+            *ngIf="currentPage === 'first'; else secondPageButtonsVariant" 
+            class="submit-btn" 
+            type="button"
+            (click)="onSubmit(userForm)"
+            [disabled]="!userForm.valid"
+            mat-raised-button 
+            color="accent">
+            next
+          </button>
+          <ng-template #secondPageButtonsVariant>
+            <button type="submit" mat-raised-button color="accent" class="submit-btn" [disabled]="!userForm.valid">
+              finish
+            </button>
+          </ng-template>
+    
+          <a href="" class="login-btn">I Already Have An Account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="right-section">
+    <div class="container">
+      <ul>
+        <li><span class="label">3</span><a>DONE</a></li>
+        <li (click)="changePage($event, userForm)" [ngStyle]="{ cursor: firstPageFilled ? 'pointer' : 'not-allowed' }">
+          <span class="label" [class.active]="currentPage === 'second'">2</span><a>Email & Password</a>
+        </li>
+        <li (click)="changePage($event, userForm)">
+          <span class="label" [class.active]="currentPage === 'first'">1</span><a>First Name & Last Name</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #doneRegistering>
+  <div class="done-registering">
+    <ng-container *ngIf="complition.successful; else unsuccessful">
+      <h4>Your DevHosts’ Account Has Been Created</h4>
+      <p>You can start using your account right now</p>
+      <button 
+        class="submit-btn" 
+        mat-raised-button 
+        color="accent">
+        go to your dashboard
+      </button>
+    </ng-container>
+    <ng-template #unsuccessful>
+      <h4>There Has Been An Error While Creating Your Account:</h4>
+      <p>{{ complition.error }}</p>
+      <button 
+        class="submit-btn" 
+        mat-raised-button 
+        (click)="reset()"
+        color="primary">
+        change my answers 
+      </button>
+    </ng-template>
+  </div>
+</ng-template>

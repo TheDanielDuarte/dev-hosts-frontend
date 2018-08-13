@@ -19,6 +19,9 @@ import { FieldToWordPipe } from './pipes/field-to-word.pipe';
 import { PageComponent } from './components/products/page/page.component';
 import { ProductsOverviewComponent } from './components/products/products-overview/products-overview.component';
 import { AuthWidgetComponent } from './components/auth-widget/auth-widget.component';
+import { LogInComponent } from './components/log-in/log-in.component';
+import { RegisterComponent } from './components/register/register.component';
+import { SameTextValidatorDirective } from './directives/same-text-validator.directive';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { AuthWidgetComponent } from './components/auth-widget/auth-widget.compon
     PageComponent,
     ProductsOverviewComponent,
     AuthWidgetComponent,
+    LogInComponent,
+    RegisterComponent,
+    SameTextValidatorDirective
   ],
   imports: [
     BrowserModule,
