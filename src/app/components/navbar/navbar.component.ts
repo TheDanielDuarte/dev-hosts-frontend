@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ProgressBarService } from '@services/progress-bar.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public progressBar: ProgressBarService) { }
 
   ngOnInit() {
   }
-
 }

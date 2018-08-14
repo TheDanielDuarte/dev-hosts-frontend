@@ -6,6 +6,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content role="main">
+    <mat-progress-bar mode="indeterminate" [color]="(progressBar.onActivation() | async).color" aria-label="Loading..." *ngIf="(progressBar.onActivation() | async).show"></mat-progress-bar>
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

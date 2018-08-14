@@ -94,7 +94,9 @@
     </ng-container>
     <ng-template #unsuccessful>
       <h4>There Has Been An Error While Creating Your Account:</h4>
-      <p>{{ complition.error }}</p>
+      <ul>
+        <li *ngFor="let error of complition.errors">{{ error }}</li>
+      </ul>
       <button 
         class="submit-btn" 
         mat-raised-button 

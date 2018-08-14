@@ -35,7 +35,9 @@
     color: #FFFFFF;
   }
 
-  p {
+  ul { margin: 0; padding: 0; list-style: none; }
+
+  p, ul li {
     font-family: Montserrat;
     font-size: 14px;
     color: #B9B9B9;
