@@ -234,6 +234,12 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
+"@ngx-pwa/local-storage@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@ngx-pwa/local-storage/-/local-storage-6.1.0.tgz#f10cd1547edba282efee01b7c72a8b27e95bf870"
+  dependencies:
+    tslib "^1.9.0"
+
 "@schematics/angular@0.6.8":
   version "0.6.8"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.6.8.tgz#a8d1afc33e77160296b0a8b3d02f0ee4dfe9d1d2"

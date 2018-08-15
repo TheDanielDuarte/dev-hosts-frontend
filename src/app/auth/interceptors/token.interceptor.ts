@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '@services/auth.service';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -13,12 +14,16 @@ export class TokenInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    const request = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.auth.getTokens().token}`
-      }
-    });
+    return this.auth.getTokens().pipe(
+      switchMap(tokens => {
+        const request = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${tokens.token}`
+          }
+        });
 
-    return next.handle(request);
+        return next.handle(request);
+      })
+    );
   }
 }

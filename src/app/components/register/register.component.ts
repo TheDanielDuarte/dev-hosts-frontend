@@ -4,7 +4,7 @@ import { AuthService } from '@services/auth.service';
 import { User } from '@models/user';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { finalize, filter } from 'rxjs/operators';
 import { ProgressBarService } from '@services/progress-bar.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public user = new User(0, new Date(), new Date(), '', '', '', '', 0);
   public passwordConfirmation;
   private serverResponse?: Subscription;
+  private userIsAuthenticated: Subscription;
 
   constructor(
     private element: ElementRef,
@@ -29,15 +30,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/home']);
-    }
+    this.userIsAuthenticated = this.auth.isAuthenticated().pipe(filter(value => value)).subscribe(() => this.router.navigate(['/home']));
   }
 
   ngOnDestroy() {
     if (this.serverResponse) {
       this.serverResponse.unsubscribe();
     }
+    this.userIsAuthenticated.unsubscribe();
   }
 
   public get currentPage() {

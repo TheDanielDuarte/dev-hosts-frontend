@@ -6,6 +6,7 @@ import { map, tap, catchError, shareReplay } from 'rxjs/operators';
 import { throwError, interval } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ProgressBarService } from '@services/progress-bar.service';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private progressBar: ProgressBarService
+    private progressBar: ProgressBarService,
+    private storage: LocalStorage
   ) { }
 
   public registerUser(user: &User) {
@@ -28,8 +30,8 @@ export class AuthService {
           const jwt = response.data.token;
           const createdUser = this.formatAttributes(response.data.user);
 
-          localStorage.setItem('auth_tokens', JSON.stringify(jwt));
-          localStorage.setItem('current_user', JSON.stringify(createdUser));
+          this.storage.setItemSubscribe('auth_tokens', jwt);
+          this.storage.setItemSubscribe('current_user', createdUser);
         }
       }),
       map((res: any) => ({ successful: res.successful, errors: res.errors })),
@@ -42,20 +44,17 @@ export class AuthService {
   }
 
   public getTokens() {
-    return JSON.parse( localStorage.getItem('auth_tokens') );
+    return this.storage.getItem('auth_tokens');
   }
 
   public getCurrentUser() {
-    return JSON.parse( localStorage.getItem('current_user'));
+    return this.storage.getItem('current_user');
   }
 
   public isAuthenticated() {
-    const tokens = this.getTokens();
-    if (!tokens) {
-      return false;
-    }
-
-    return !this.jwtHelper.isTokenExpired( tokens.token );
+    return this.getTokens().pipe(
+      map(tokens => tokens && !this.jwtHelper.isTokenExpired(tokens.token)),
+    );
   }
 
   public loginUser() {
