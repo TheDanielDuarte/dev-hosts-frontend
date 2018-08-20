@@ -22,9 +22,9 @@ export class AuthService {
   ) { }
 
   public registerUser(user: &User) {
-    const userFormatted = this.formatAttributes(user, true);
+    const formattedUser = this.formatAttributes(user, true);
     this.progressBar.changeState(true, 'primary');
-    return this.http.post(`${AuthService.baseURL}/users`, userFormatted).pipe(
+    return this.http.post(`${AuthService.baseURL}/users`, formattedUser).pipe(
       tap((response: {data: any, errors: any[], successful: boolean}) => {
         if (response.successful) {
           const jwt = response.data.token;
@@ -57,10 +57,34 @@ export class AuthService {
     );
   }
 
-  public loginUser() {
+  public loginUser(user: User) {
+    const formattedUser = this.formatAttributes(user, true);
+    this.progressBar.changeState(true, 'primary');
+
+    return this.http.post(`${AuthService.baseURL}/users/login`, formattedUser).pipe(
+      catchError(err => {
+        const { successful, errors } = err.error;
+        return throwError({ successful, errors });
+      }),
+      tap((response: {data: any, errors: any[], successful: boolean}) => {
+        if (response.successful) {
+          this.onSuccessfulAuthentication(response);
+        }
+      }),
+      map((res: any) => ({ successful: res.successful, errors: res.errors })),
+      shareReplay()
+    );
   }
 
   public renewToken() {
+  }
+
+  private onSuccessfulAuthentication(response: { data: { token: any, user: any } }) {
+    const jwt = response.data.token;
+    const createdUser = this.formatAttributes(response.data.user);
+
+    this.storage.setItemSubscribe('auth_tokens', jwt);
+    this.storage.setItemSubscribe('current_user', createdUser);
   }
 
   private formatAttributes(obj: any, inverse = false) {

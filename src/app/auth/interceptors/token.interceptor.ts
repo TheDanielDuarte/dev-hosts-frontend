@@ -10,7 +10,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.method.toLocaleLowerCase() === 'post' && req.url === 'https://devhosts.herokuapp.com/api/users') {
+    if (!this.canProceed(req)) {
       return next.handle(req);
     }
 
@@ -21,9 +21,21 @@ export class TokenInterceptor implements HttpInterceptor {
             Authorization: `Bearer ${tokens.token}`
           }
         });
-
         return next.handle(request);
       })
     );
+  }
+
+  private canProceed(req: HttpRequest<any>): boolean {
+    const blacklistedRoutes = ['servers', 'services', 'storage-centers', 'login'];
+
+    const containsAnyBlacklistedRoute = blacklistedRoutes.some(val => req.url.includes(val));
+
+    if (containsAnyBlacklistedRoute) {
+      return false;
+    }
+
+    return !(req.method.toLocaleLowerCase() === 'post' &&
+    req.url === 'https://devhosts.herokuapp.com/api/users');
   }
 }
