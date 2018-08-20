@@ -1,3 +1,54 @@
-<p>
-  log-in works!
-</p>
+<ng-container *ngIf="!complition.done; else doneLogin">
+  <div class="left-section">
+    <div class="container">
+      <h4 class="page-title">Log in</h4>
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <mat-form-field appearance="standard">
+          <mat-label>Email</mat-label>
+          <input matInput [ngModel]="user.email" name="email" email required #emailInput="ngModel">
+          <mat-error *ngIf="!emailInput.valid">
+            <ng-container *ngIf="emailInput.hasError('required'); else invalidEmail">You must enter you email</ng-container>
+            <ng-template #invalidEmail>This email has an invalid format</ng-template>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [ngModel]="user.password" name="password" required minlength="8" #pswInput="ngModel">
+          <mat-error *ngIf="!pswInput.valid">
+            <ng-container *ngIf="pswInput.hasError('required')">You must enter a password</ng-container>
+            <ng-container *ngIf="pswInput.hasError('minlength')">It must be at least 8 charactes long</ng-container>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="bottom-buttons">
+          <button type="submit" mat-raised-button color="accent" class="submit-btn" [disabled]="!userForm.valid">
+            finish
+          </button>
+    
+          <a routerLink="/register" class="register-btn">I Don't Have An Account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="right-section">
+    <div class="container">
+      
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #doneLogin>
+  <div class="failed-authenticating">
+    <h4>There Has Been An Error While Logging Into Your Account:</h4>
+    <ul>
+      <li *ngFor="let error of complition.errors">{{ error }}</li>
+    </ul>
+    <button 
+      class="submit-btn" 
+      mat-raised-button 
+      (click)="reset()"
+      color="primary">
+      change my answers 
+    </button>
+  </div>
+</ng-template>
