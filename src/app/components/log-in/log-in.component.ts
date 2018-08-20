@@ -16,7 +16,6 @@ export class LogInComponent implements OnInit, OnDestroy {
   public complition = { done: false, errors: [] };
   public user = new User(0, new Date(), new Date(), '', '', '', '', 0);
   private serverResponse?: Subscription;
-  private userIsAuthenticated: Subscription;
 
   constructor(
     private element: ElementRef,
@@ -27,14 +26,12 @@ export class LogInComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userIsAuthenticated = this.auth.isAuthenticated().pipe(filter(value => value)).subscribe(() => this.router.navigate(['/home']));
   }
 
   ngOnDestroy() {
     if (this.serverResponse) {
       this.serverResponse.unsubscribe();
     }
-    this.userIsAuthenticated.unsubscribe();
   }
 
   public onSubmit(form: NgForm) {

@@ -10,6 +10,7 @@ import { ServiceResolver } from './resolvers/service.resolver';
 import { ProductsOverviewComponent } from './components/products/products-overview/products-overview.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LogInComponent } from './components/log-in/log-in.component';
+import { StopIfAuthenticatedGuard } from './auth/guards/stop-if-authenticated.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -47,8 +48,8 @@ const routes: Routes = [
       },
     ]
   },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LogInComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [StopIfAuthenticatedGuard] },
+  { path: 'login', component: LogInComponent, canActivate: [StopIfAuthenticatedGuard] },
   { path: 'error', component: PageNotFoundComponent },
   { path: '**', redirectTo: 'error', pathMatch: 'full' }
 ];
