@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from '@models/user';
 import { HttpClient } from '@angular/common/http';
 import * as camelcaseKeys from 'camelcase-keys';
-import { map, tap, catchError, shareReplay } from 'rxjs/operators';
-import { throwError, interval } from 'rxjs';
+import { map, tap, catchError, shareReplay, switchMap } from 'rxjs/operators';
+import { throwError, of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ProgressBarService } from '@services/progress-bar.service';
 import { LocalStorage } from '@ngx-pwa/local-storage';
@@ -77,6 +77,24 @@ export class AuthService {
   }
 
   public renewToken() {
+    return this.getTokens().pipe(
+      switchMap(tokens => {
+        if (tokens && this.jwtHelper.isTokenExpired(tokens.token)) {
+          return of(tokens);
+        }
+        return throwError('User has not logged in or tokens have not expired');
+      }),
+      switchMap(tokens => this.http.post(`${AuthService.baseURL}/users/refresh-token`, {
+          'refresh-token': tokens.refreshToken
+        })
+      ),
+      tap((response: {data: any, errors: any[], successful: boolean}) => {
+        if (response.successful) {
+          this.storage.setItemSubscribe('auth_tokens', response.data);
+        }
+      }),
+      map(response => response.successful),
+    );
   }
 
   private onSuccessfulAuthentication(response: { data: { token: any, user: any } }) {

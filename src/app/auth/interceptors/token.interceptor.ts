@@ -27,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private canProceed(req: HttpRequest<any>): boolean {
-    const blacklistedRoutes = ['servers', 'services', 'storage-centers', 'login'];
+    const blacklistedRoutes = ['servers', 'services', 'storage-centers', 'login', 'refresh-token'];
 
     const containsAnyBlacklistedRoute = blacklistedRoutes.some(val => req.url.includes(val));
 
