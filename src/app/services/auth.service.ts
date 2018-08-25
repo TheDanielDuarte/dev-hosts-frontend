@@ -3,7 +3,7 @@ import { User } from '@models/user';
 import { HttpClient } from '@angular/common/http';
 import * as camelcaseKeys from 'camelcase-keys';
 import { map, tap, catchError, shareReplay, switchMap } from 'rxjs/operators';
-import { throwError, of } from 'rxjs';
+import { throwError, of, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ProgressBarService } from '@services/progress-bar.service';
 import { LocalStorage } from '@ngx-pwa/local-storage';
@@ -43,17 +43,30 @@ export class AuthService {
     );
   }
 
-  public getTokens() {
+  public getTokens(): Observable<Tokens> {
     return this.storage.getItem('auth_tokens');
   }
 
-  public getCurrentUser() {
+  public getCurrentUser(): Observable<User> {
     return this.storage.getItem('current_user');
   }
 
   public isAuthenticated() {
     return this.getTokens().pipe(
       map(tokens => tokens && !this.jwtHelper.isTokenExpired(tokens.token)),
+    );
+  }
+
+  public timeUntilExpired() {
+    return this.getTokens().pipe(
+      map(tokens => {
+        if (!tokens) {
+          return 0;
+        } else {
+          const expirationDate = this.jwtHelper.getTokenExpirationDate(tokens.token);
+          return expirationDate.getTime() - new Date().getTime();
+        }
+      })
     );
   }
 
@@ -79,10 +92,18 @@ export class AuthService {
   public renewToken() {
     return this.getTokens().pipe(
       switchMap(tokens => {
-        if (tokens && this.jwtHelper.isTokenExpired(tokens.token)) {
+        if (tokens && (this.jwtHelper.isTokenExpired(tokens.token))) {
           return of(tokens);
         }
-        return throwError('User has not logged in or tokens have not expired');
+        return this.timeUntilExpired().pipe(
+          switchMap((timeUntilExpired) => {
+            const minutes = (timeUntilExpired / 1000) / 60;
+            if (minutes < 5) {
+              return of(tokens);
+            }
+            return throwError('User has not logged in or tokens have not expired');
+          })
+        );
       }),
       switchMap(tokens => this.http.post(`${AuthService.baseURL}/users/refresh-token`, {
           'refresh-token': tokens.refreshToken
@@ -93,7 +114,12 @@ export class AuthService {
           this.storage.setItemSubscribe('auth_tokens', response.data);
         }
       }),
-      map(response => response.successful),
+      switchMap(response => {
+        if (response.successful) {
+          return this.getTokens();
+        }
+        return of(null);
+      }),
     );
   }
 
@@ -119,3 +145,5 @@ export class AuthService {
     return newObject;
   }
 }
+
+interface Tokens { token: string; refreshToken: string; type: string; }
