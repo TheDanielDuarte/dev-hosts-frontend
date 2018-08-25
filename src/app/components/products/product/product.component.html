@@ -22,12 +22,12 @@
         <mat-icon>cancel</mat-icon>
       </a>
       <div *ngIf="userIsLoggedIn; else userNotLoggedIn">
-        <a mat-button color="accent">buy</a>
-        <a mat-button color="primary">add to cart</a>
+        <a mat-button color="accent" (click)="purchased.emit(productId)">buy</a>
+        <a mat-button color="primary" (click)="addedToCart.emit(productId)">add to cart</a>
       </div>
   
       <ng-template #userNotLoggedIn>
-        <p>Please <a href="">Login</a> or <a routerLink="/register">Sign up</a> to buy this product</p>
+        <p>Please <a routerLink="/login">Login</a> or <a routerLink="/register">Sign up</a> to buy this product</p>
       </ng-template>
     </div>
   </ng-container>

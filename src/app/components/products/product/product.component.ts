@@ -16,6 +16,8 @@ export class ProductComponent implements OnInit {
   @Input() public userIsLoggedIn: boolean;
   @Output() private activate = new EventEmitter();
   @Output() private deactivate = new EventEmitter();
+  @Output() public purchased = new EventEmitter();
+  @Output() public addedToCart = new EventEmitter();
   public layout$: Observable<any>;
   public previewFields: string[];
   private remainingFields: number;

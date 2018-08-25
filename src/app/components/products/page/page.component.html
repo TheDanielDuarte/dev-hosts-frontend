@@ -8,9 +8,11 @@
         [data]="product"
         [fields]="fields"
         [productId]="product.id"
-        [userIsLoggedIn]="userIsLoggedIn"
+        [userIsLoggedIn]="userIsLoggedIn$ | async"
         (activate)="onActivate(product.id)"
         (deactivate)="onDeactivate(product.id)"
+        (purchased)="onProductPurchased($event)"
+        (addedToCart)="onProductAddedToCart($event)"
       ></app-product>
     </div>
   </ng-container>
@@ -25,9 +27,11 @@
           [data]="product"
           [fields]="group.fields"
           [productId]="product.id"
-          [userIsLoggedIn]="userIsLoggedIn"
+          [userIsLoggedIn]="userIsLoggedIn$ | async"
           (activate)="onActivate(product.id)"
           (deactivate)="onDeactivate(product.id)"
+          (purchased)="onProductPurchased($event)"
+          (addedToCart)="onProductAddedToCart($event)"
         ></app-product>
       </div>
     </div>

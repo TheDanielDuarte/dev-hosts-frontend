@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { ProductComponent } from '../product/product.component';
 import { ProductsCommunicationService } from '@services/products-communication.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-page',
@@ -14,7 +15,7 @@ export class PageComponent implements OnInit, OnDestroy {
   public showAsGrid$: Observable<boolean>;
   public filter$: Observable<{ active: boolean; value: string }>;
   public data: any[];
-  public userIsLoggedIn: boolean;
+  public userIsLoggedIn$: Observable<boolean>;
   @ViewChildren(ProductComponent) private products: QueryList<ProductComponent>;
   public fields: string[];
   public groups: { title: string, data: any[], fields: string[] }[];
@@ -22,7 +23,8 @@ export class PageComponent implements OnInit, OnDestroy {
 
   constructor(
     private productsComunication: ProductsCommunicationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class PageComponent implements OnInit, OnDestroy {
     .pipe( map(layout => layout === 'grid') );
 
     this.filter$ = this.productsComunication.onFilterProducts();
-    this.userIsLoggedIn = true;
+    this.userIsLoggedIn$ = this.auth.isAuthenticated();
     this.subscription = this.route.data.subscribe(data => {
       if (!data.groups) {
         this.fields = data.fields;
@@ -59,6 +61,14 @@ export class PageComponent implements OnInit, OnDestroy {
         product.toggleShadowMode();
       }
     });
+  }
+
+  public onProductPurchased(productId: number) {
+    console.log('purchased: ' + productId);
+  }
+
+  public onProductAddedToCart(productId: number) {
+    console.log('addedToCart: ' + productId);
   }
 
   ngOnDestroy() {
