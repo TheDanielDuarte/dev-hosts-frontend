@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '@models/user';
 import { HttpClient } from '@angular/common/http';
 import * as camelcaseKeys from 'camelcase-keys';
-import { map, tap, catchError, shareReplay, switchMap } from 'rxjs/operators';
+import { map, tap, catchError, shareReplay, switchMap, pluck } from 'rxjs/operators';
 import { throwError, of, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ProgressBarService } from '@services/progress-bar.service';
@@ -13,7 +13,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 })
 export class AuthService {
   private static readonly baseURL = 'https://devhosts.herokuapp.com/api';
-  private jwtHelper = new JwtHelperService();
+  private readonly jwtHelper = new JwtHelperService();
 
   constructor(
     private http: HttpClient,
@@ -34,7 +34,7 @@ export class AuthService {
           this.storage.setItemSubscribe('current_user', createdUser);
         }
       }),
-      map((res: any) => ({ successful: res.successful, errors: res.errors })),
+      finalResult(),
       catchError(err => {
         const { successful, errors } = err.error;
         return throwError({ successful, errors });
@@ -84,7 +84,7 @@ export class AuthService {
           this.onSuccessfulAuthentication(response);
         }
       }),
-      map((res: any) => ({ successful: res.successful, errors: res.errors })),
+      finalResult(),
       shareReplay()
     );
   }
@@ -128,7 +128,7 @@ export class AuthService {
     const createdUser = this.formatAttributes(response.data.user);
 
     this.storage.setItemSubscribe('auth_tokens', jwt);
-    this.storage.setItemSubscribe('current_user', createdUser);
+    this.storage.setItemSubscribe('current_user', createdUser as User);
   }
 
   private formatAttributes(obj: any, inverse = false) {
@@ -144,6 +144,31 @@ export class AuthService {
 
     return newObject;
   }
+
+  public subscribeToProduct(productId: number, productCategory: 'storage' | 'servers' | 'services') {
+    this.progressBar.changeState(true);
+    return this.getCurrentUser().pipe(
+      map(user => {
+        const category = productCategory === 'storage' ? 'dataStorage' : productCategory;
+        const { id, [category]: products } = user;
+
+        const productsIds = products.map(product => product.id);
+        return { id, productsIds };
+      }),
+      switchMap((user) =>
+        this.http.put(`${AuthService.baseURL}/users/${user.id}`, { [productCategory]: [...user.productsIds, productId] })
+      ),
+      tap((response: { successful: boolean, data: &User, errors: string[] }) => {
+        if (response.successful) {
+          const user = this.formatAttributes(response.data);
+          this.storage.setItemSubscribe('current_user', user);
+        }
+        this.progressBar.changeState(false);
+      }),
+      finalResult(),
+    );
+  }
 }
 
+const finalResult = () => map((res: any) => ({ successful: res.successful, errors: res.errors }));
 interface Tokens { token: string; refreshToken: string; type: string; }

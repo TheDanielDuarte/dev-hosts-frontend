@@ -64,7 +64,10 @@ export class PageComponent implements OnInit, OnDestroy {
   }
 
   public onProductPurchased(productId: number) {
-    console.log('purchased: ' + productId);
+    const [ url ] = this.route.snapshot.url;
+    const path = url.path.includes('-') ? url.path.split('-')[1].trim() : url.path;
+
+    this.auth.subscribeToProduct(productId, path as any).subscribe(console.log);
   }
 
   public onProductAddedToCart(productId: number) {

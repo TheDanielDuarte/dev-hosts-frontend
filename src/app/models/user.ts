@@ -1,3 +1,7 @@
+import { Server } from '@models/server';
+import { Service } from '@models/service';
+import { DataStorage } from '@models/data-storage';
+
 export class User {
   constructor(
     public id: number,
@@ -6,6 +10,9 @@ export class User {
     public firstName: string,
     public lastName: string,
     public email: string,
+    public servers: Server[] = [],
+    public services: Service[] = [],
+    public dataStorage: DataStorage[] = [],
     public password?: string,
     public chargePerMonth?: number,
   ) {}
