@@ -10,10 +10,10 @@ export class User {
     public firstName: string,
     public lastName: string,
     public email: string,
+    public password?: string,
+    public chargePerMonth?: number,
     public servers: Server[] = [],
     public services: Service[] = [],
     public dataStorage: DataStorage[] = [],
-    public password?: string,
-    public chargePerMonth?: number,
   ) {}
 }

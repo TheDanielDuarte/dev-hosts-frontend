@@ -19,7 +19,7 @@ export class PageComponent implements OnInit, OnDestroy {
   @ViewChildren(ProductComponent) private products: QueryList<ProductComponent>;
   public fields: string[];
   public groups: { title: string, data: any[], fields: string[] }[];
-  private subscription: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private productsComunication: ProductsCommunicationService,
@@ -34,7 +34,7 @@ export class PageComponent implements OnInit, OnDestroy {
 
     this.filter$ = this.productsComunication.onFilterProducts();
     this.userIsLoggedIn$ = this.auth.isAuthenticated();
-    this.subscription = this.route.data.subscribe(data => {
+    const subscription = this.route.data.subscribe(data => {
       if (!data.groups) {
         this.fields = data.fields;
         this.data = data.data;
@@ -42,6 +42,7 @@ export class PageComponent implements OnInit, OnDestroy {
         this.groups = data.groups.map((group, index) => ({ fields: [], ...group, data: data.data[index] }));
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   public onActivate(id: string) {
@@ -67,7 +68,8 @@ export class PageComponent implements OnInit, OnDestroy {
     const [ url ] = this.route.snapshot.url;
     const path = url.path.includes('-') ? url.path.split('-')[1].trim() : url.path;
 
-    this.auth.subscribeToProduct(productId, path as any).subscribe(console.log);
+    const subscription = this.auth.subscribeToProduct(productId, path as any).subscribe(console.log);
+    this.subscriptions.push(subscription);
   }
 
   public onProductAddedToCart(productId: number) {
@@ -75,7 +77,7 @@ export class PageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
 }

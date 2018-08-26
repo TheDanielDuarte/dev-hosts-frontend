@@ -152,7 +152,7 @@ export class AuthService {
         const category = productCategory === 'storage' ? 'dataStorage' : productCategory;
         const { id, [category]: products } = user;
 
-        const productsIds = products.map(product => product.id);
+        const productsIds = (products || []).map(product => product.id);
         return { id, productsIds };
       }),
       switchMap((user) =>
@@ -166,6 +166,19 @@ export class AuthService {
         this.progressBar.changeState(false);
       }),
       finalResult(),
+    );
+  }
+
+  public logout() {
+    this.progressBar.changeState(true);
+    return this.http.post(`${AuthService.baseURL}/users/logout`, {}).pipe(
+      tap((res: { successful: boolean, data: &User, errors: string[] }) => {
+        if (res.successful) {
+          this.storage.clearSubscribe();
+        }
+        this.progressBar.changeState(false);
+      }),
+      finalResult()
     );
   }
 }

@@ -4,7 +4,6 @@ import { AuthService } from '@services/auth.service';
 import { User } from '@models/user';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { ProgressBarService } from '@services/progress-bar.service';
 
 @Component({
@@ -42,7 +41,7 @@ export class LogInComponent implements OnInit, OnDestroy {
         this.router.navigate(['/home']);
       }, (res) => {
         this.complition.done = true;
-        this.complition.errors = res.errors.map(error => error.message);
+        this.complition.errors = res.errors;
         this.renderer.addClass(this.element.nativeElement, 'failed-authenticating');
         this.progressBar.changeState(false);
       });
