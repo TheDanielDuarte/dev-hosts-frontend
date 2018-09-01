@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, Renderer2, HostListener, RendererStyleFlags2 } from '@angular/core';
 import { ProductsCommunicationService } from '@services/products-communication.service';
 import { Observable } from 'rxjs';
 
@@ -63,6 +63,18 @@ export class ProductComponent implements OnInit {
     this.shadowed = !this.shadowed;
   }
 
+  public hide() {
+    this.renderer.setStyle(this.element.nativeElement, 'opacity', '0.2', RendererStyleFlags2.Important);
+  }
+
+  public show() {
+    this.renderer.setStyle(this.element.nativeElement, 'opacity', '1', RendererStyleFlags2.Important);
+  }
+
   public get isShadowed() { return this.shadowed; }
   public get isActive() { return this.active; }
+
+  public titleMatches(str: string) {
+    return this.title.toLocaleLowerCase().includes(str.toLocaleLowerCase());
+  }
 }

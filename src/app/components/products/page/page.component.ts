@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChildren, QueryList, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, iif } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductComponent } from '../product/product.component';
 import { ProductsCommunicationService } from '@services/products-communication.service';
@@ -34,6 +34,7 @@ export class PageComponent implements OnInit, OnDestroy {
 
     this.filter$ = this.productsComunication.onFilterProducts();
     this.userIsLoggedIn$ = this.auth.isAuthenticated();
+    this.productsComunication.onFilterProducts().subscribe(val => this.onFilter(val));
     const subscription = this.route.data.subscribe(data => {
       if (!data.groups) {
         this.fields = data.fields;
@@ -43,6 +44,20 @@ export class PageComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.push(subscription);
+  }
+
+  private onFilter(val: { active: boolean; value: string }) {
+    const productsArray = this.products.toArray();
+    if (val.active) {
+      for (const product of productsArray) {
+        const action = product.titleMatches(val.value) ? 'show' : 'hide';
+        product[action]();
+      }
+    } else {
+      for (const product of productsArray) {
+        product.show();
+      }
+    }
   }
 
   public onActivate(id: string) {

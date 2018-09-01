@@ -7,10 +7,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class ProductsCommunicationService {
 
-  private currentLayout = new BehaviorSubject<Layout>('grid');
-  private currentFilter = new BehaviorSubject<{ active: boolean; value: string }>({ active: false, value: '' });
-  private layout$ = this.currentLayout.asObservable();
-  private filter$ = this.currentFilter.asObservable();
+  private readonly currentLayout = new BehaviorSubject<Layout>('grid');
+  private readonly currentFilter = new BehaviorSubject<{ active: boolean; value: string }>({ active: false, value: '' });
+  private readonly layout$ = this.currentLayout.asObservable();
+  private readonly filter$ = this.currentFilter.asObservable();
 
   constructor() { }
 
